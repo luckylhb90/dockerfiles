@@ -1,0 +1,8 @@
+version: '3'
+services:
+  golang:
+    build: ./go/
+    ports:
+      - "1313:1313"
+    volumes:
+      - ~/src:/go/src:rw
