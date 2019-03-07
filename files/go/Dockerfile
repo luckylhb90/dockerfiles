@@ -1,5 +1,5 @@
 FROM golang:latest
-MAINTAINER hopher "565983236@qq.com"
+LABEL maintainer="565983236@qq.com"
 
 # 设置时区
 ENV TZ=Asia/Shanghai
