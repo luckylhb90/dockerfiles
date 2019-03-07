@@ -1,5 +1,5 @@
 FROM php:7.2-fpm
-MAINTAINER hopher "565983236@qq.com"
+LABEL maintainer="565983236@qq.com"
 
 # 设置时区
 ENV TZ=Asia/Shanghai
@@ -8,7 +8,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # 更新安装依赖包和PHP核心拓展
 # 
 # –no-install-recommends 参数来避免安装非必须的文件，从而减小镜像的体积
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
@@ -20,7 +20,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         && docker-php-ext-install mysqli \
         && rm -r /var/lib/apt/lists/*
 
-
 # 安装 Composer
 # see: https://docs.docker.com/samples/library/composer/
 # 参数： -- 为输出流
@@ -29,13 +28,12 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # 安装 Swoole 扩展
 # see: https://github.com/swoole/swoole-src
 #RUN cd /usr/local/src \
-#    && wget -c https://github.com/swoole/swoole-src/archive/v4.3.0.tar.gz \
-#    && tar zxvf v4.3.0.tar.gz \
-#    && 
-#    && cd swoole-src \
-#    && phpize \
-#    && ./configure \
-#    && make && make install \
-#    && echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini 
+   # && wget -c https://github.com/swoole/swoole-src/archive/v4.3.0.tar.gz \
+  #  && tar zxvf v4.3.0.tar.gz \
+  #  && cd swoole-src \
+  #  && phpize \
+  #  && ./configure \
+   # && make && make install \
+   # && echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini 
 
 #RUN rm -rf /usr/local/src/swoole-src
