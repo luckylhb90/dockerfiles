@@ -27,13 +27,15 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # 安装 Swoole 扩展
 # see: https://github.com/swoole/swoole-src
+
+COPY ./pkg/swoole.tar.gz /usr/local/src/swoole.tar.gz
+
 #RUN cd /usr/local/src \
-   # && wget -c https://github.com/swoole/swoole-src/archive/v4.3.0.tar.gz \
-  #  && tar zxvf v4.3.0.tar.gz \
-  #  && cd swoole-src \
-  #  && phpize \
-  #  && ./configure \
-   # && make && make install \
-   # && echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini 
+#    && tar -zxvf swoole.tar.gz \
+#    && cd swoole-src \
+#    && phpize \
+ #   && ./configure \
+ #   && make && make install \
+  #  && echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini 
 
 #RUN rm -rf /usr/local/src/swoole-src
