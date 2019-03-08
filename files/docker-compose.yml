@@ -6,3 +6,17 @@ services:
       - "1313:1313"
     volumes:
       - ~/src:/go/src:rw
+  mysql:
+    build: ./mysql
+    ports:
+      - "3306:3306"    
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    restart: always
+    command: "--character-set-server=utf8"
+
+  redis:
+      build: ./redis
+      ports:
+        - "6379:6379"
+      restart: always
