@@ -57,7 +57,7 @@ docker-compose --help
 ```  
 **参数说明**
 
-- `-p` 指定项目名称，默认为当前目录名, 可以在`docker-compose.yml`中设置`image`, `container_name` 这2个属性
+- `-p` 指定项目名称，默认为当前目录名, 也可以直接在`docker-compose.yml`中设置`image`, `container_name` 这2个属性
 
 ## 各系统软件源
 
