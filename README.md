@@ -6,6 +6,13 @@
 > 个人开发环境，还是使用老式的 bind mount, 将host机器的目录mount到container中。  
 > 因为开发中，需要在指定目录中编码，所以不适合使用volume(卷)
 
+相关软件版本：
+- PHP 7.2
+- Golang latest
+
+PHP 扩展
+- swoole
+
 ## 使用
 
 执行命令：
