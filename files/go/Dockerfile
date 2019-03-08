@@ -14,4 +14,4 @@ RUN echo "deb http://mirrors.aliyun.com/debian stretch main contrib non-free" > 
     echo "deb http://mirrors.aliyun.com/debian-security stretch/updates main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb-src http://mirrors.aliyun.com/debian-security stretch/updates main contrib non-free" >> /etc/apt/sources.list
 
-
+EXPOSE 1313
