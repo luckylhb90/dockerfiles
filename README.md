@@ -4,23 +4,26 @@
 
 > **NOTE**:  
 > 个人开发环境，还是使用老式的 bind mount, 将host机器的目录mount到container中。  
-> 因为开发中，需要在指定目录中编码，所以不适合使用volume
+> 因为开发中，需要在指定目录中编码，所以不适合使用volume(卷)
 
 ## 使用
 
 执行命令：
 ```
-cd files
-docker-compose -p hopher up
+cd dockerfiles
+chmod +x build.sh
+./build.sh
 ```
 
 
-## Docker-compose 参数说明
+## Docker-compose 
 
+> **NOTE**: 暂未使用
+
+参数说明
 ```
 docker-compose --help
 ```
-
 - `-p` 指定项目名称，默认为当前目录名
 
 
