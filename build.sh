@@ -114,9 +114,55 @@ fi
 ##############################
 # nginx 环境
 ##############################
+nginx_image_name="hopher/nginx:latest"
+nginx_container_name="mynginx"
 
-# TODO...
+buildDockerImage $nginx_image_name "./files/nginx"
+searchContainer $nginx_container_name
 
+# 容器不存在 - $? 获取 searchContainer
+if [ $? -ne 0 ]; then
+    # 配置文件
+    dirname=$HOME/nginx/etc
+    if [ ! -d "$dirname" ];then
+        echo "Create Dir $dirname"
+        mkdir -p "$dirname"
+    fi
+    # 日志文件
+    dirname=$HOME/nginx/logs
+    if [ ! -d "$dirname" ];then
+        echo "Create Dir $dirname"
+        mkdir -p "$dirname"
+    fi
+
+    # 启动简约版容器 && 复制相关配置文件
+    docker run -d --name $nginx_container_name $nginx_image_name 
+    ## 备份 /etc 文件夹
+    dirname=$HOME/nginx/etc
+    if [ -d "$dirname" ];then
+        echo "Backup Dir $dirname"
+        YMDHMS=`date +%Y%m%d%H%M%S`
+        mv ${HOME}/nginx/etc ${HOME}/nginx/etc_$YMDHMS
+    fi
+
+    docker cp $nginx_container_name:/etc/nginx/. ${HOME}/nginx/etc
+    ## 停止容器 && 删除容器
+    docker stop $nginx_container_name > /dev/null && docker rm $nginx_container_name  > /dev/null
+
+    ##
+    # 重新配置容器
+    #   - 添加 phpfpm
+    #   - 监听 80 端口
+    # 
+    docker run -d --name $nginx_container_name \
+    -p 80:80 \
+    -v ${HOME}/src:/usr/share/nginx/html \
+    -v ${HOME}/nginx/etc:/etc/nginx \
+    -v ${HOME}/nginx/logs:/var/log/nginx \
+    --link myphp:phpfpm \
+    $nginx_image_name
+
+fi
 
 ##############################
 # mysql 环境
