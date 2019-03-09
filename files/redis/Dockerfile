@@ -2,5 +2,5 @@ FROM redis:3.2
 LABEL maintainer="565983236@qq.com"
 
 # 设置时区
-ENV TZ=Asia/Shanghai
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+ENV TIMEZONE=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /etc/timezone

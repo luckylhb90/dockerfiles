@@ -4,13 +4,13 @@
 
 相关软件版本：
 - PHP 7.2
-- Golang latest
+- Golang 1.12
 - MySQL 5.7
-- Nginx latest
+- Nginx 1.15
 - Redis 3.2
 
 PHP 扩展
-- swoole
+- swoole v4.3.0
 
 ## 使用
 
@@ -98,7 +98,18 @@ deb-src http://mirrors.aliyun.com/debian-security stretch/updates main contrib n
 > **NOTE**:  
 > 查询自己的Linux版本 `cat /etc/issue`
 
+## 常用`shell`组合
+
+```
+# 删除所有容器
+docker stop `docker ps -q -a` | xargs docker rm
+
+# 删除所有标签为none的镜像
+docker images|grep \<none\>|awk '{print $3}'|xargs docker rmi
+```
 
 ##  参考资料
 - [[官方] Compose file version 3 reference](https://docs.docker.com/compose/compose-file/)
 - [清华大学开源软件镜像站-Debian 镜像使用帮助](https://mirrors.tuna.tsinghua.edu.cn/help/debian/)
+- [[官方] mysql 镜像说明](https://hub.docker.com/_/mysql/)
+- [[官方] php 镜像说明](https://hub.docker.com/_/php/)

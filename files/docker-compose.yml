@@ -1,15 +1,13 @@
 version: '3'
 services:
   golang:
-    image: hopher/golang:latest
+    image: hopher/golang:1.12
     container_name: my_golang
     build: ./go/
     ports:
       - "1313:1313"
     volumes:
-      - ~/src:/go/src:rw    
-    stdin_open: true
-    tty: true
+      - ~/src:/go/src:rw
 
   php:
     image: hopher/php:7.2-fpm
@@ -23,7 +21,7 @@ services:
     command: php-fpm
   
   nginx:
-    image: hopher/nginx:latest
+    image: hopher/nginx:1.15
     container_name: my_nginx    
     build: ./nginx
     depends_on:
@@ -33,6 +31,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - ~/src:/usr/share/nginx/html:rw
     restart: always
     command: nginx -g 'daemon off;'
 
@@ -42,14 +42,20 @@ services:
     build: ./mysql
     ports:
       - "3306:3306"
+    volumes:
+      - ~/mysql/data:/var/lib/mysql:rw
+      - ~/mysql/etc:/etc/mysql/mysql.conf.d:ro # 自定义配置文件
+      - ~/mysql/log:/var/log/mysql:rw
     environment:
-      MYSQL_ROOT_PASSWORD: 123456      
+      MYSQL_ROOT_PASSWORD: 123456
     restart: always
     command: "--character-set-server=utf8"
 
   redis:
+      image: hopher/redis:3.2
+      container_name: my_redis
       build: ./redis
       ports:
         - "6379:6379"
-      restart: always      
+      restart: always
       
