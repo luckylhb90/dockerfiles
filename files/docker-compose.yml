@@ -8,6 +8,8 @@ services:
       - "1313:1313"
     volumes:
       - ~/src:/go/src:rw
+    stdin_open: true
+    tty: true
 
   php:
     image: hopher/php:7.2-fpm
