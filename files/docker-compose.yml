@@ -8,6 +8,8 @@ services:
       - "1313:1313"
     volumes:
       - ~/src:/go/src:rw
+      - ~/go/bin:/go/bin:rw
+      - ~/go/pkg:/go/pkg:rw
     stdin_open: true
     tty: true
 
