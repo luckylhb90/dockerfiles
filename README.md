@@ -11,6 +11,7 @@
 
 PHP 扩展
 - swoole v4.3.0
+- Composer version 1.8.4
 
 ## 使用
 
