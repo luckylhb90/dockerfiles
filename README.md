@@ -45,10 +45,14 @@ docker-compose down
 
 ### 3. 测试
 
-打开下面 url, 表示成功
+将项目源码放到 `src` 目录下, 并运行
 
-- http://localhost/index.html
-- http://localhost/index.php
+```
+cd src
+echo "<?php phpinfo();" > index.php
+```
+
+打开 url 访问 `http://localhost/index.php`
 
 
 ### 4.帮助
