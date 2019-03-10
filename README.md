@@ -20,7 +20,11 @@ PHP 扩展
 
 ```
 wget -c https://github.com/hopher/dockerfiles/archive/master.zip -O dockerfiles.zip
+unzip dockerfiles.zip
+mv dockerfiles-master ~/app
 ```
+
+其中, `~/app` 为个人工作目录，请根据自己需要更改
 
 ### 2.docker-compose 构建项目
 
