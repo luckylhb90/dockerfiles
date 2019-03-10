@@ -69,6 +69,16 @@ docker-compose --help
 
 - `-p` 指定项目名称，默认为当前目录名, 也可以直接在`docker-compose.yml`中设置`image`, `container_name` 这2个属性
 
+### 5.目录结构
+
+```
+dockerfiles
+    |-- services            # docker 相关服务
+    |-- src                 # 工作源码目录, 如 nginx `/usr/share/nginx/html`
+    |-- docker-compose.yml  # docker-compose.yml 定义
+    |-- deprecated.sh       # 已弃用 shell 脚本, 勿使用
+```
+
 ## 各系统软件源
 
 ### Ubuntu
