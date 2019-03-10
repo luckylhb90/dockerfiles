@@ -102,20 +102,6 @@ dockerfiles
 | stretch  | 9.x  |
 | buster   | 10.x |
 
-
-### 阿里源
-
-修改 `/etc/apt/sources.list` 为以下内容
-
-```
-deb http://mirrors.aliyun.com/debian stretch main contrib non-free
-deb-src http://mirrors.aliyun.com/debian stretch main contrib non-free
-deb http://mirrors.aliyun.com/debian stretch-updates main contrib non-free
-deb-src http://mirrors.aliyun.com/debian stretch-updates main contrib non-free
-deb http://mirrors.aliyun.com/debian-security stretch/updates main contrib non-free
-deb-src http://mirrors.aliyun.com/debian-security stretch/updates main contrib non-free
-```
-
 > **NOTE**:  
 > 查询自己的Linux版本 `cat /etc/issue`
 
@@ -133,7 +119,11 @@ docker inspect 容器名或ID | grep "IPAddress"
 ```
 
 ##  参考资料
+- [[官方] Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
 - [[官方] Compose file version 3 reference](https://docs.docker.com/compose/compose-file/)
-- [清华大学开源软件镜像站-Debian 镜像使用帮助](https://mirrors.tuna.tsinghua.edu.cn/help/debian/)
 - [[官方] mysql 镜像说明](https://hub.docker.com/_/mysql/)
 - [[官方] php 镜像说明](https://hub.docker.com/_/php/)
+- [阿里云开源镜像站](https://opsx.alibaba.com/mirror)
+- [腾讯开源镜像站](https://mirrors.cloud.tencent.com/index.html)
+- [网易开源镜像站](http://mirrors.163.com/)
+- [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/help/debian/)
