@@ -15,21 +15,15 @@ PHP 扩展
 ## 使用
 
 ### 1.下载
-直接 clone：
-```
-git clone https://github.com/hopher/dockerfiles.git
-```
-或者下载 zip 压缩包也可以。
 
-### 2.下载需要的扩展包
-先下载好要使用的扩展包，如果编译出错要多次构建容器就可以省掉下载时间。
+下载 zip 压缩包 && 解压
+
 ```
-cd dockerfiles
-chmod +x download.sh
-./download.sh
+wget -c https://github.com/hopher/dockerfiles/archive/master.zip -O dockerfiles.zip
 ```
 
-### 4.docker-compose 构建项目
+### 2.docker-compose 构建项目
+
 进入 docker-compose.yml 所在目录：
 执行命令：
 ```
@@ -49,7 +43,15 @@ docker-compose up -d
 docker-compose down
 ```
 
-### 5.帮助
+### 3. 测试
+
+打开下面 url, 表示成功
+
+- http://localhost/index.html
+- http://localhost/index.php
+
+
+### 4.帮助
 
 执行命令：
 ```

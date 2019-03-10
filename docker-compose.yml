@@ -3,7 +3,7 @@ services:
   golang:
     image: hopher/golang:1.12
     container_name: my_golang
-    build: ./go/
+    build: ./services/go/
     ports:
       - "1313:1313"
     volumes:
@@ -15,7 +15,7 @@ services:
   php:
     image: hopher/php:7.2-fpm
     container_name: my_php
-    build: ./php/
+    build: ./services/php/
     ports:
       - "9000:9000"
     volumes:
@@ -27,7 +27,7 @@ services:
   mysql:
     image: hopher/mysql:5.7
     container_name: my_mysql    
-    build: ./mysql
+    build: ./services/mysql
     ports:
       - "3306:3306"
     volumes:
@@ -42,7 +42,7 @@ services:
   nginx:
     image: hopher/nginx:1.15
     container_name: my_nginx    
-    build: ./nginx
+    build: ./services/nginx
     depends_on:
       - php
     links:  # links 为 services name
@@ -59,7 +59,7 @@ services:
   redis:
       image: hopher/redis:3.2
       container_name: my_redis
-      build: ./redis
+      build: ./services/redis
       ports:
         - "6379:6379"
       restart: always    
