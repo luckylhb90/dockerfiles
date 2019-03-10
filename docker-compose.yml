@@ -1,0 +1,66 @@
+version: '3'
+services:
+  golang:
+    image: hopher/golang:1.12
+    container_name: my_golang
+    build: ./go/
+    ports:
+      - "1313:1313"
+    volumes:
+      - ./src:/go/src:rw
+      - ./services/go/bin:/go/bin:rw
+      - ./services/go/pkg:/go/pkg:rw
+    stdin_open: true
+    tty: true
+  php:
+    image: hopher/php:7.2-fpm
+    container_name: my_php
+    build: ./php/
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./src:/var/www/html:rw
+      - ./services/php/etc:/usr/local/etc:ro
+    restart: always
+    command: php-fpm
+
+  mysql:
+    image: hopher/mysql:5.7
+    container_name: my_mysql    
+    build: ./mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./services/mysql/data:/var/lib/mysql:rw
+      - ./services/mysql/etc:/etc/mysql:ro # 自定义配置文件
+      - ./services/mysql/log:/var/log/mysql:rw
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    restart: always
+    command: "--character-set-server=utf8"
+
+  nginx:
+    image: hopher/nginx:1.15
+    container_name: my_nginx    
+    build: ./nginx
+    depends_on:
+      - php
+    links:  # links 为 services name
+      - php:php-fpm
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./src:/usr/share/nginx/html:rw
+      - ./services/nginx/etc/conf.d:/etc/nginx/conf.d
+    restart: always
+    command: nginx -g 'daemon off;'
+
+  redis:
+      image: hopher/redis:3.2
+      container_name: my_redis
+      build: ./redis
+      ports:
+        - "6379:6379"
+      restart: always    
+      
