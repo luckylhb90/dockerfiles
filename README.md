@@ -126,6 +126,9 @@ docker stop `docker ps -q -a` | xargs docker rm
 
 # 删除所有标签为none的镜像
 docker images|grep \<none\>|awk '{print $3}'|xargs docker rmi
+
+# 查找容器IP地址
+docker inspect 容器名或ID | grep "IPAddress"
 ```
 
 ##  参考资料
