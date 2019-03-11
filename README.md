@@ -120,9 +120,9 @@ docker inspect 容器名或ID | grep "IPAddress"
 > 查询自己的Linux版本 `cat /etc/issue`
 
 ##  参考资料
-- [[官方] Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
-- [[官方] Compose file version 3 reference](https://docs.docker.com/compose/compose-file/)
-- [[官方] Use volumes](https://docs.docker.com/storage/volumes/)
+- [[官方文档] Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
+- [[官方文档] Compose file version 3 reference](https://docs.docker.com/compose/compose-file/)
+- [[官方文档] Use volumes](https://docs.docker.com/storage/volumes/)
 - [[镜像] mysql 镜像说明](https://hub.docker.com/_/mysql/)
 - [[镜像] php 镜像说明](https://hub.docker.com/_/php/)
 - [[镜像站] 阿里云开源镜像站](https://opsx.alibaba.com/mirror)
