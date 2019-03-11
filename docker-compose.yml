@@ -8,6 +8,7 @@ services:
       - "1313:1313"
     links:
       - mysql:mysql
+      - redis:redis
     volumes:
       - ./src:/go/src:rw
       - ./services/go/bin:/go/bin:rw
