@@ -6,6 +6,8 @@ services:
     build: ./services/go/
     ports:
       - "1313:1313"
+    links:
+      - mysql:mysql
     volumes:
       - ./src:/go/src:rw
       - ./services/go/bin:/go/bin:rw
@@ -53,6 +55,7 @@ services:
     volumes:
       - ./src:/usr/share/nginx/html:rw
       - ./services/nginx/etc/conf.d:/etc/nginx/conf.d
+      - ./services/nginx/etc/nginx.conf:/etc/nginx/nginx.conf:ro
     restart: always
     command: nginx -g 'daemon off;'
 
