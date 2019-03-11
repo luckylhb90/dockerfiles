@@ -10,7 +10,7 @@ services:
       - mysql:mysql
       - redis:redis
     volumes:
-      - ./src:/go/src:rw
+      - src:/go/src:rw
       - ./services/go/bin:/go/bin:rw
       - ./services/go/pkg:/go/pkg:rw
     stdin_open: true
@@ -22,7 +22,7 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - ./src:/var/www/html:rw
+      - src:/var/www/html:rw
       - ./services/php/etc:/usr/local/etc:ro
     restart: always
     command: php-fpm
@@ -54,7 +54,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./src:/usr/share/nginx/html:rw
+      - src:/usr/share/nginx/html:rw
       - ./services/nginx/etc/conf.d:/etc/nginx/conf.d
       - ./services/nginx/etc/nginx.conf:/etc/nginx/nginx.conf:ro
     restart: always
@@ -66,5 +66,13 @@ services:
       build: ./services/redis
       ports:
         - "6379:6379"
-      restart: always    
-      
+      restart: always
+# see: 
+#   - https://docs.docker.com/engine/reference/commandline/volume_create/#driver-specific-options
+#   - https://github.com/docker/compose/issues/2957
+volumes:
+  src:
+    driver: local
+    driver_opts:
+      device: ${HOME}/src # docker 不支持相对路径
+      o: bind

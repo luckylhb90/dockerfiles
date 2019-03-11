@@ -22,10 +22,10 @@ PHP 扩展
 ```
 wget -c https://github.com/hopher/dockerfiles/archive/master.zip -O dockerfiles.zip
 unzip dockerfiles.zip
-mv dockerfiles-master ~/app
+mkdir -p ${HOME}/src
 ```
 
-其中, `~/app` 为个人工作目录，请根据自己需要更改
+其中, `~/src` 为 volumes 名称，可根据自己需要更改
 
 ### 2.docker-compose 构建项目
 
@@ -75,7 +75,6 @@ docker-compose --help
 ```
 dockerfiles
     |-- services            # docker 相关服务
-    |-- src                 # 工作源码目录, 如 nginx `/usr/share/nginx/html`
     |-- docker-compose.yml  # docker-compose.yml 定义
     |-- deprecated.sh       # 已弃用 shell 脚本, 勿使用
 ```
@@ -118,9 +117,27 @@ docker images|grep \<none\>|awk '{print $3}'|xargs docker rmi
 docker inspect 容器名或ID | grep "IPAddress"
 ```
 
+## 共享存储
+
+### 创建
+```
+docker volume create src
+```
+
+### 列表
+
+```
+docker volume ls
+```
+
+### 帮助资料
+
+- https://docs.docker.com/storage/volumes/
+
 ##  参考资料
 - [[官方] Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
 - [[官方] Compose file version 3 reference](https://docs.docker.com/compose/compose-file/)
+- [[官方] Use volumes](https://docs.docker.com/storage/volumes/)
 - [[官方] mysql 镜像说明](https://hub.docker.com/_/mysql/)
 - [[官方] php 镜像说明](https://hub.docker.com/_/php/)
 - [阿里云开源镜像站](https://opsx.alibaba.com/mirror)
