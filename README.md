@@ -25,7 +25,7 @@ unzip dockerfiles.zip
 mkdir -p ${HOME}/src
 ```
 
-其中, `~/src` 为 volumes 名称，可根据自己需要更改
+其中, `~/src` 为 volumes 名称，可根据自己需要更改 `docker-compose.yml` 中 volumes 对应值
 
 ### 2.docker-compose 构建项目
 
@@ -50,7 +50,7 @@ docker-compose down
 
 ### 3. 测试
 
-将项目源码放到 `src` 目录下, 并运行
+将项目源码放到 `~/src` 目录下, 并运行
 
 ```
 cd src
@@ -77,6 +77,21 @@ dockerfiles
     |-- services            # docker 相关服务
     |-- docker-compose.yml  # docker-compose.yml 定义
     |-- deprecated.sh       # 已弃用 shell 脚本, 勿使用
+
+~/src                       # 工作源码存放目录
+```
+
+## 常用`shell`组合
+
+```
+# 删除所有容器
+docker stop `docker ps -q -a` | xargs docker rm
+
+# 删除所有标签为none的镜像
+docker images|grep \<none\>|awk '{print $3}'|xargs docker rmi
+
+# 查找容器IP地址
+docker inspect 容器名或ID | grep "IPAddress"
 ```
 
 ## 各系统软件源
@@ -104,43 +119,13 @@ dockerfiles
 > **NOTE**:  
 > 查询自己的Linux版本 `cat /etc/issue`
 
-## 常用`shell`组合
-
-```
-# 删除所有容器
-docker stop `docker ps -q -a` | xargs docker rm
-
-# 删除所有标签为none的镜像
-docker images|grep \<none\>|awk '{print $3}'|xargs docker rmi
-
-# 查找容器IP地址
-docker inspect 容器名或ID | grep "IPAddress"
-```
-
-## 共享存储
-
-### 创建
-```
-docker volume create src
-```
-
-### 列表
-
-```
-docker volume ls
-```
-
-### 帮助资料
-
-- https://docs.docker.com/storage/volumes/
-
 ##  参考资料
 - [[官方] Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
 - [[官方] Compose file version 3 reference](https://docs.docker.com/compose/compose-file/)
 - [[官方] Use volumes](https://docs.docker.com/storage/volumes/)
-- [[官方] mysql 镜像说明](https://hub.docker.com/_/mysql/)
-- [[官方] php 镜像说明](https://hub.docker.com/_/php/)
-- [阿里云开源镜像站](https://opsx.alibaba.com/mirror)
-- [腾讯开源镜像站](https://mirrors.cloud.tencent.com/index.html)
-- [网易开源镜像站](http://mirrors.163.com/)
-- [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/help/debian/)
+- [[镜像] mysql 镜像说明](https://hub.docker.com/_/mysql/)
+- [[镜像] php 镜像说明](https://hub.docker.com/_/php/)
+- [[镜像站] 阿里云开源镜像站](https://opsx.alibaba.com/mirror)
+- [[镜像站] 腾讯开源镜像站](https://mirrors.cloud.tencent.com/index.html)
+- [[镜像站] 网易开源镜像站](http://mirrors.163.com/)
+- [[镜像站] 清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/help/debian/)
