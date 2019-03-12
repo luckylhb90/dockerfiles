@@ -6,10 +6,12 @@ ENV TIMEZONE=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /etc/timezone
 
 # 更新安装源镜像
-COPY ./mirrors/sources.list /etc/apt/sources.list
-COPY ./mirrors/sources.list.d/buster.list /etc/apt/sources.list.d/buster.list
+COPY ./mirrors/tencent/debian/stretch.list /etc/apt/sources.list
+COPY ./mirrors/tencent/debian/buster.list /etc/apt/sources.list.d/buster.list
+
+
 # 安装 Composer
-COPY ./pkg/composer.phar /usr/local/bin/composer
+COPY ./services/php/pkg/composer.phar /usr/local/bin/composer
 
 # 更新安装依赖包和PHP核心拓展
 # 
@@ -29,7 +31,7 @@ RUN apt-get clean all && apt-get update && apt-get install -y \
 
 # 安装 Swoole 扩展
 # see: https://github.com/swoole/swoole-src
-COPY ./pkg/swoole.tar.gz /usr/local/src/swoole.tar.gz
+COPY ./services/php/pkg/swoole.tar.gz /usr/local/src/swoole.tar.gz
 RUN cd /usr/local/src \
     && tar -zxvf swoole.tar.gz \
     && cd swoole-src-4.3.0 \

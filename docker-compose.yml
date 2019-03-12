@@ -3,7 +3,9 @@ services:
   golang:
     image: hopher/golang:1.12
     container_name: my_golang
-    build: ./services/go/
+    build:
+      context: .
+      dockerfile: ./services/go/Dockerfile    
     ports:
       - "1313:1313"
     links:
@@ -18,7 +20,9 @@ services:
   php:
     image: hopher/php:7.2-fpm
     container_name: my_php
-    build: ./services/php/
+    build:
+      context: .
+      dockerfile: ./services/php/Dockerfile
     ports:
       - "9000:9000"
     volumes:
@@ -29,8 +33,10 @@ services:
 
   mysql:
     image: hopher/mysql:5.7
-    container_name: my_mysql    
-    build: ./services/mysql
+    container_name: my_mysql
+    build:
+      context: .
+      dockerfile: ./services/mysql/Dockerfile    
     ports:
       - "3306:3306"
     volumes:
@@ -44,8 +50,10 @@ services:
 
   nginx:
     image: hopher/nginx:1.15
-    container_name: my_nginx    
-    build: ./services/nginx
+    container_name: my_nginx
+    build:
+      context: .
+      dockerfile: ./services/nginx/Dockerfile     
     depends_on:
       - php
     links:  # links 为 services name
@@ -63,7 +71,9 @@ services:
   redis:
       image: hopher/redis:3.2
       container_name: my_redis
-      build: ./services/redis
+      build:
+        context: .
+        dockerfile: ./services/redis/Dockerfile        
       ports:
         - "6379:6379"
       restart: always

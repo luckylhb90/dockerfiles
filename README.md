@@ -77,7 +77,7 @@ dockerfiles
     |-- services            # docker 相关服务
     |-- docker-compose.yml  # docker-compose.yml 定义
     |-- deprecated.sh       # 已弃用 shell 脚本, 勿使用
-
+    |-- mirrors             # source.list 镜像源地址
 ~/src                       # 工作源码存放目录
 ```
 
