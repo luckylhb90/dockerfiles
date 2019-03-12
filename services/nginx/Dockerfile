@@ -1,10 +1,14 @@
 FROM nginx:1.15
-LABEL maintainer="565983236@qq.com"
+LABEL maintainer="hopher <565983236@qq.com>"
+
+# 设置服务根目录
+ENV SERVICE_PATH ./services/nginx
 
 # 设置时区
 ENV TIMEZONE=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /etc/timezone
 
-# 更新安装源镜像
-COPY ./mirrors/tencent/debian/stretch.list /etc/apt/sources.list
+# 设置安装源镜像
+ENV MIRROR_SOURCE=tencent
+COPY ./mirrors/$MIRROR_SOURCE/debian/stretch.list /etc/apt/sources.list
         

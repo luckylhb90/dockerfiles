@@ -1,6 +1,8 @@
 version: '3'
 services:
   golang:
+    environment:
+      MIRROR_SOURCE: tencent
     image: hopher/golang:1.12
     container_name: my_golang
     build:
@@ -18,6 +20,8 @@ services:
     stdin_open: true
     tty: true
   php:
+    environment:
+      MIRROR_SOURCE: tencent
     image: hopher/php:7.2-fpm
     container_name: my_php
     build:
@@ -32,6 +36,8 @@ services:
     command: php-fpm
 
   mysql:
+    environment:
+      MIRROR_SOURCE: tencent    
     image: hopher/mysql:5.7
     container_name: my_mysql
     build:
@@ -49,6 +55,8 @@ services:
     command: "--character-set-server=utf8"
 
   nginx:
+    environment:
+      MIRROR_SOURCE: tencent    
     image: hopher/nginx:1.15
     container_name: my_nginx
     build:
@@ -69,17 +77,22 @@ services:
     command: nginx -g 'daemon off;'
 
   redis:
-      image: hopher/redis:3.2
-      container_name: my_redis
-      build:
-        context: .
-        dockerfile: ./services/redis/Dockerfile        
-      ports:
-        - "6379:6379"
-      restart: always
+    environment:
+      MIRROR_SOURCE: tencent    
+    image: hopher/redis:3.2
+    container_name: my_redis
+    build:
+      context: .
+      dockerfile: ./services/redis/Dockerfile        
+    ports:
+      - "6379:6379"
+    restart: always
+#    
 # see: 
 #   - https://docs.docker.com/engine/reference/commandline/volume_create/#driver-specific-options
 #   - https://github.com/docker/compose/issues/2957
+# 
+# 相当于: mount -t none -o bind source_path dest_path
 volumes:
   src:
     driver: local

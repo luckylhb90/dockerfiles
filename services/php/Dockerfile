@@ -1,17 +1,21 @@
 FROM php:7.2-fpm
-LABEL maintainer="565983236@qq.com"
+LABEL maintainer="hopher <565983236@qq.com>"
+
+# 设置服务根目录
+ENV SERVICE_PATH ./services/php
 
 # 设置时区
-ENV TIMEZONE=Asia/Shanghai
+ENV TIMEZONE Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /etc/timezone
 
-# 更新安装源镜像
-COPY ./mirrors/tencent/debian/stretch.list /etc/apt/sources.list
-COPY ./mirrors/tencent/debian/buster.list /etc/apt/sources.list.d/buster.list
+# 设置安装源镜像
+ENV MIRROR_SOURCE=tencent
+COPY ./mirrors/$MIRROR_SOURCE/debian/stretch.list /etc/apt/sources.list
+COPY ./mirrors/$MIRROR_SOURCE/debian/buster.list /etc/apt/sources.list.d/buster.list
 
 
 # 安装 Composer
-COPY ./services/php/pkg/composer.phar /usr/local/bin/composer
+COPY $SERVICE_PATH/pkg/composer.phar /usr/local/bin/composer
 
 # 更新安装依赖包和PHP核心拓展
 # 
@@ -31,7 +35,7 @@ RUN apt-get clean all && apt-get update && apt-get install -y \
 
 # 安装 Swoole 扩展
 # see: https://github.com/swoole/swoole-src
-COPY ./services/php/pkg/swoole.tar.gz /usr/local/src/swoole.tar.gz
+COPY $SERVICE_PATH/pkg/swoole.tar.gz /usr/local/src/swoole.tar.gz
 RUN cd /usr/local/src \
     && tar -zxvf swoole.tar.gz \
     && cd swoole-src-4.3.0 \
