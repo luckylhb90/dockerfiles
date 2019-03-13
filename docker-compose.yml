@@ -10,9 +10,6 @@ services:
       dockerfile: ./services/go/Dockerfile    
     ports:
       - "1313:1313"
-    links:
-      - mysql:mysql
-      - redis:redis
     volumes:
       - src:/go/src:rw
       - ./services/go/bin:/go/bin:rw
@@ -64,7 +61,7 @@ services:
       dockerfile: ./services/nginx/Dockerfile     
     depends_on:
       - php
-    links:  # links 为 services name
+    links:  # links 为 services name, 官方已废弃这个参数
       - php:php-fpm
     ports:
       - "80:80"
