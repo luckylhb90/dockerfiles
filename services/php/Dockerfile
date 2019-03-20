@@ -16,6 +16,9 @@ COPY ./mirrors/$MIRROR_SOURCE/debian/buster.list /etc/apt/sources.list.d/buster.
 
 # 安装 Composer
 COPY $SERVICE_PATH/pkg/composer.phar /usr/local/bin/composer
+# 配置中国镜像
+# see: https://pkg.phpcomposer.com/
+RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
 # 更新安装依赖包和PHP核心拓展
 # 
