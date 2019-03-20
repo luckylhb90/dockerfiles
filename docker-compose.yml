@@ -25,6 +25,8 @@ services:
     build:
       context: .
       dockerfile: ./services/php/Dockerfile
+      args:
+        INSTALL_SWOOLE: "true"      
     ports:
       - "9501:9501"
       - "9502:9502"
@@ -98,6 +100,8 @@ services:
     build:
       context: .
       dockerfile: ./services/node/Dockerfile
+      args:
+        INSTALL_GITBOOK: "false"  # true | false
     ports:
       - "4000:4000"
     volumes:

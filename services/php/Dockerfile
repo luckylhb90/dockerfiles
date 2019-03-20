@@ -18,7 +18,8 @@ COPY ./mirrors/$MIRROR_SOURCE/debian/buster.list /etc/apt/sources.list.d/buster.
 COPY $SERVICE_PATH/pkg/composer.phar /usr/local/bin/composer
 # 配置中国镜像
 # see: https://pkg.phpcomposer.com/
-RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com
+RUN chmod +x /usr/local/bin/composer \
+    && composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
 # 更新安装依赖包和PHP核心拓展
 # 
@@ -38,12 +39,16 @@ RUN apt-get clean all && apt-get update && apt-get install -y \
 
 # 安装 Swoole 扩展
 # see: https://github.com/swoole/swoole-src
+# TODO: COPY 应该放在 `if` 判断执行
+ARG INSTALL_SWOOLE=false
 COPY $SERVICE_PATH/pkg/swoole.tar.gz /usr/local/src/swoole.tar.gz
-RUN cd /usr/local/src \
+RUN if [ ${INSTALL_SWOOLE} = true ]; then \
+    cd /usr/local/src \
     && tar -zxvf swoole.tar.gz \
     && cd swoole-src-4.3.0 \
     && phpize \
     && ./configure \
     && make && make install \
     && echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini \
-    && cd ../ && rm -rf swoole*
+    && cd ../ && rm -rf swoole* \
+;fi
