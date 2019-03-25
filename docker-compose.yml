@@ -20,13 +20,13 @@ services:
   php:
     environment:
       MIRROR_SOURCE: tencent
-    image: hopher/php:7.2-fpm
+    image: hopher/php:7.3-fpm
     container_name: my_php
     build:
       context: .
-      dockerfile: ./services/php/Dockerfile
+      dockerfile: ./services/php/v7.3/Dockerfile
       args:
-        INSTALL_SWOOLE: "true"      
+        INSTALL_SWOOLE: "false"      
     ports:
       - "9501:9501"
       - "9502:9502"
