@@ -1,6 +1,6 @@
 # Dockerfiles
 
-用 Docker 容器服务的方式搭建 nginx/php/mysql/redis/go/node 环境，易于维护、升级。
+用 Docker 容器服务的方式搭建 nginx/php/mysql/redis/go/node/postgres 环境，易于维护、升级。
 
 相关软件版本：
 - PHP 7.2
@@ -9,6 +9,7 @@
 - Nginx 1.15
 - Redis 3.2
 - Node 11.12
+- Postgres 10
 
 PHP 扩展
 - swoole v4.3.0

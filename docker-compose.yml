@@ -109,6 +109,22 @@ services:
     stdin_open: true
     tty: true
     restart: always
+
+  postgres:
+    image: hopher/postgres:10
+    container_name: my_postgres
+    restart: always
+    environment:
+      MIRROR_SOURCE: tencent  
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - 5432:5432 
+    build:
+      context: .
+      dockerfile: ./services/postgres/Dockerfile 
+    volumes: 
+      - ./services/postgresql/data:/var/lib/postgresql/data:rw   
+
 #    
 # see: 
 #   - https://docs.docker.com/engine/reference/commandline/volume_create/#driver-specific-options
