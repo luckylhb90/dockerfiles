@@ -24,15 +24,20 @@ RUN chmod +x /usr/local/bin/composer \
 # 更新安装依赖包和PHP核心拓展
 # 
 # –no-install-recommends 参数来避免安装非必须的文件，从而减小镜像的体积
+# libpcre3-dev 是 opcache 必须库
+# libpq-dev 是 pdo_pgsql 必须库
 RUN apt-get clean all && apt-get update && apt-get install -y \
         git \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
+        libpq-dev \
+        libpcre3-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
         && docker-php-ext-install zip \
         && docker-php-ext-install pdo_mysql \
+        && docker-php-ext-install pdo_pgsql \
         && docker-php-ext-install opcache \
         && docker-php-ext-install mysqli \
         && rm -r /var/lib/apt/lists/*
