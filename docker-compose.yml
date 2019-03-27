@@ -121,9 +121,9 @@ services:
       - 5432:5432 
     build:
       context: .
-      dockerfile: ./services/postgres/Dockerfile 
-    volumes: 
-      - ./services/postgres/data:/var/lib/postgresql/data:rw   
+      dockerfile: ./services/postgres/Dockerfile
+    volumes:
+      - ./services/postgres/data:/var/lib/postgresql/data:rw
 
 #    
 # see: 
