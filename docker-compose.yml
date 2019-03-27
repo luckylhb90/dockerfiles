@@ -123,7 +123,7 @@ services:
       context: .
       dockerfile: ./services/postgres/Dockerfile 
     volumes: 
-      - ./services/postgresql/data:/var/lib/postgresql/data:rw   
+      - ./services/postgres/data:/var/lib/postgresql/data:rw   
 
 #    
 # see: 
