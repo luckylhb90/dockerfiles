@@ -124,6 +124,7 @@ services:
       dockerfile: ./services/postgres/Dockerfile
     volumes:
       - ./services/postgres/data:/var/lib/postgresql/data:rw
+      - src:/app:rw
 
 #    
 # see: 
