@@ -24,3 +24,12 @@ RUN if [ ${INSTALL_GITBOOK} = true ]; then \
     && sed -i 's/confirm: true/confirm: false/g' \
     /root/.gitbook/versions/3.2.3/lib/output/website/copyPluginAssets.js \
 ;fi
+
+# 安装 docsify轻量级文档系统
+# ![github地址](https://github.com/docsifyjs/docsify)
+# ![英文文档](https://docsify.js.org/#/?id=docsify)
+# ![中文文档](https://docsify.js.org/#/zh-cn/quickstart)
+ARG INSTALL_DOCSIFY=false
+RUN if [ ${INSTALL_DOCSIFY} = true ]; then \
+    npm i docsify-cli -g \
+;fi

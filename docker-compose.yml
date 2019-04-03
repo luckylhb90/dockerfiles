@@ -102,6 +102,7 @@ services:
       dockerfile: ./services/node/Dockerfile
       args:
         INSTALL_GITBOOK: "false"  # true | false
+        INSTALL_DOCSIFY: "false"  # true | false
     ports:
       - "4000:4000"
     volumes:
