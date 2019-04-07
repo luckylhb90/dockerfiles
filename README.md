@@ -130,6 +130,17 @@ docker inspect 容器名或ID | grep "IPAddress"
 >
 > @https://docs.docker.com/compose/compose-file/
 
+
+## git ssh 密钥配置
+
+For your host machine which run git, all the contents of `git config --list` is stored in files:
+
+- If use `git config --system` to configure them, they are stored in `/etc/gitconfig`
+- If use `git config --global` to configure them, they are stored in `~/.gitconfig`
+
+> @https://stackoverflow.com/questions/52819584/copying-local-git-config-into-docker-container
+> @https://github.com/tomwillfixit/atomci/blob/master/docker-compose.yml
+
 ##  参考资料
 - [[官方文档] Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
 - [[官方文档] Compose file version 3 reference](https://docs.docker.com/compose/compose-file/)

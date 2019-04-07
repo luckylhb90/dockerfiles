@@ -7,13 +7,18 @@ services:
     container_name: my_golang
     build:
       context: .
-      dockerfile: ./services/go/Dockerfile    
+      dockerfile: ./services/go/Dockerfile
     ports:
       - "1313:1313"
     volumes:
+      # Golang config
       - src:/go/src:rw
       - ./services/go/bin:/go/bin:rw
       - ./services/go/pkg:/go/pkg:rw
+      # Git and ssh config
+      - ~/.ssh:/root/.ssh:ro # Change - ssh key needed to push to github
+      - ~/.gitconfig:/root/.gitconfig:ro  # Change - git config needed for user details
+      #- /tmp/ssh_auth_sock:/tmp/ssh_auth_sock #Static - needed to push to github without prompt
     stdin_open: true
     tty: true
     restart: always
@@ -134,6 +139,7 @@ services:
 # 
 # 相当于: mount -t none -o bind source_path dest_path
 volumes:
+  # 源码目录
   src:
     driver: local
     driver_opts:
