@@ -1,6 +1,6 @@
 # Dockerfiles
 
-用 Docker 容器服务的方式搭建 nginx/php/mysql/redis/go/node/postgres 环境，易于维护、升级。
+用 Docker 容器服务的方式搭建 nginx/php/mysql/redis/go/node/postgres/phpmyadmin 环境，易于维护、升级。
 
 相关软件版本：
 - PHP 7.2
@@ -10,6 +10,7 @@
 - Redis 3.2
 - Node 11.12
 - Postgres 10
+- Phpmyadmin latest
 
 PHP 扩展
 - swoole v4.3.0
@@ -140,6 +141,14 @@ For your host machine which run git, all the contents of `git config --list` is 
 
 > @https://stackoverflow.com/questions/52819584/copying-local-git-config-into-docker-container
 > @https://github.com/tomwillfixit/atomci/blob/master/docker-compose.yml
+
+## 更新记录
+
+- 2019/04/14 添加 phpmyadmin (待完善...)
+
+  **知识点**: 
+  [external_links](https://docs.docker.com/compose/compose-file/#external_links) / 
+  [networks](https://docs.docker.com/compose/compose-file/#networks)
 
 ##  参考资料
 - [[官方文档] Dockerfile reference](https://docs.docker.com/engine/reference/builder/)

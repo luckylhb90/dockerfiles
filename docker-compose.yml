@@ -132,6 +132,20 @@ services:
       - ./services/postgres/data:/var/lib/postgresql/data:rw
       - src:/app:rw
 
+  phpmyadmin:
+    image: hopher/phpmyadmin:latest
+    container_name: my_phpmyadmin
+    build:
+      context: .
+      dockerfile: ./services/phpmyadmin/Dockerfile    
+    environment:
+      PMA_ARBITRARY: 1  # when set to 1 connection to the arbitrary server will be allowed
+    restart: always
+    ports:
+      - 8002:80
+    #volumes:
+    #- /sessions
+
 #    
 # see: 
 #   - https://docs.docker.com/engine/reference/commandline/volume_create/#driver-specific-options
