@@ -24,12 +24,12 @@ services:
     restart: always
   php:
     environment:
-      MIRROR_SOURCE: tencent
+      MIRROR_SOURCE: aliyun
     image: hopher/php:7.2-fpm
     container_name: my_php
     build:
       context: .
-      dockerfile: ./services/php/Dockerfile
+      dockerfile: ./services/php/v7.2/Dockerfile
       args:
         INSTALL_SWOOLE: "false"      
     ports:
