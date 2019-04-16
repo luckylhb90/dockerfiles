@@ -9,7 +9,7 @@ ENV TIMEZONE Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /etc/timezone
 
 # 设置安装源镜像
-ENV MIRROR_SOURCE=tencent
+ENV MIRROR_SOURCE=aliyun
 COPY ./mirrors/$MIRROR_SOURCE/debian/stretch.list /etc/apt/sources.list
 COPY ./mirrors/$MIRROR_SOURCE/debian/buster.list /etc/apt/sources.list.d/buster.list
 
