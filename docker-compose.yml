@@ -38,7 +38,7 @@ services:
       - "9503:9503"
     volumes:
       - src:/var/www/html:rw
-      - ./services/php/etc:/usr/local/etc:ro
+#      - ./services/php/etc:/usr/local/etc:ro
     restart: always
     command: php-fpm
 

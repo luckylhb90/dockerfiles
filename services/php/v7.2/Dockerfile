@@ -63,3 +63,6 @@ RUN if [ ${INSTALL_SWOOLE} = true ]; then \
     && echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini \
     && cd ../ && rm -rf swoole* \
 ;fi
+
+# 配置 php.ini
+COPY $SERVICE_PATH/etc/php.ini /usr/local/etc/php/php.ini

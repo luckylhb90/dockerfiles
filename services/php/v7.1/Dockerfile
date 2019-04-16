@@ -13,7 +13,6 @@ ENV MIRROR_SOURCE=aliyun
 COPY ./mirrors/$MIRROR_SOURCE/debian/stretch.list /etc/apt/sources.list
 COPY ./mirrors/$MIRROR_SOURCE/debian/buster.list /etc/apt/sources.list.d/buster.list
 
-
 # 安装 Composer
 COPY $SERVICE_PATH/pkg/composer.phar /usr/local/bin/composer
 # 配置中国镜像
@@ -63,3 +62,6 @@ RUN if [ ${INSTALL_SWOOLE} = true ]; then \
     && echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini \
     && cd ../ && rm -rf swoole* \
 ;fi
+
+# 配置 php.ini
+COPY $SERVICE_PATH/etc/php.ini /usr/local/etc/php/php.ini
