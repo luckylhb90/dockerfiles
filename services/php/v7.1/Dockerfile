@@ -44,8 +44,8 @@ RUN apt-get clean all && apt-get update && apt-get install -y \
         && docker-php-ext-install pdo_mysql \
         && docker-php-ext-install pdo_pgsql \
         && docker-php-ext-install opcache \
-        && docker-php-ext-install mysqli \
-        && docker-php-ext-install mbstring
+        && docker-php-ext-install mysqli
+#        && docker-php-ext-install mbstring
 #        && rm -r /var/lib/apt/lists/*
 
 # 安装 Swoole 扩展

@@ -31,18 +31,20 @@ RUN apt-get clean all && apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
-        zlib1g-dev \
-        libzip-dev \
         libpq-dev \
         libpcre3-dev \
+        libmcrypt-dev \
+        libzip-dev \
+        zip \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
         && docker-php-ext-install zip \
         && docker-php-ext-install pdo_mysql \
         && docker-php-ext-install pdo_pgsql \
         && docker-php-ext-install opcache \
-        && docker-php-ext-install mysqli \
-        && rm -r /var/lib/apt/lists/*
+        && docker-php-ext-install mysqli
+#        && docker-php-ext-install mbstring
+#        && rm -r /var/lib/apt/lists/*
 
 # 安装 Swoole 扩展
 # see: https://github.com/swoole/swoole-src
