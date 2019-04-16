@@ -22,3 +22,11 @@ RUN apt-get install -y \
   && docker-php-ext-configure zip --with-libzip \
   && docker-php-ext-install zip
 ```
+
+
+## Tofix
+
+```
+warning: mbstring (mbstring.so) is already loaded!
+> php:7.2-fpm
+```

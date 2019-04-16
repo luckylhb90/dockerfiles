@@ -25,11 +25,11 @@ services:
   php:
     environment:
       MIRROR_SOURCE: aliyun
-    image: hopher/php:7.2-fpm
+    image: hopher/php:7.1-fpm
     container_name: my_php
     build:
       context: .
-      dockerfile: ./services/php/v7.2/Dockerfile
+      dockerfile: ./services/php/v7.1/Dockerfile
       args:
         INSTALL_SWOOLE: "false"      
     ports:
@@ -132,19 +132,12 @@ services:
       - ./services/postgres/data:/var/lib/postgresql/data:rw
       - src:/app:rw
 
-  phpmyadmin:
-    image: hopher/phpmyadmin:latest
-    container_name: my_phpmyadmin
+  java:
+    image: hopher/java:8
+    container_name: my_java
     build:
       context: .
-      dockerfile: ./services/phpmyadmin/Dockerfile    
-    environment:
-      PMA_ARBITRARY: 1  # when set to 1 connection to the arbitrary server will be allowed
-    restart: always
-    ports:
-      - 8002:80
-    #volumes:
-    #- /sessions
+      dockerfile: ./services/java/Dockerfile
 
 #    
 # see: 
