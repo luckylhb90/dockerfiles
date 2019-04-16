@@ -1,5 +1,7 @@
 ## 错误整合
 
+### 1
+
 Question:
 
 ```
@@ -24,9 +26,15 @@ RUN apt-get install -y \
 ```
 
 
-## Tofix
+### 2
 
-```
-warning: mbstring (mbstring.so) is already loaded!
+A: warning
+> warning: mbstring (mbstring.so) is already loaded!  
 > php:7.2-fpm
+
+Q: 去除下面指令即可
 ```
+docker-php-ext-install mbstring
+```
+
+
