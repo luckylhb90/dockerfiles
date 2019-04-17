@@ -3,20 +3,23 @@
 用 Docker 容器服务的方式搭建 nginx/php/mysql/redis/go/node/postgres/phpmyadmin 环境，易于维护、升级。
 
 相关软件版本：
-- PHP 7.2
+- PHP 7.1/7.2/7.3
 - Golang 1.12
 - MySQL 5.7
 - Nginx 1.15
 - Redis 3.2
 - Node 11.12
 - Postgres 10
-- Phpmyadmin latest
+- Java 8
+- Tomcat 8
 
 PHP 扩展
 - swoole v4.3.0
 - Composer version 1.8.4
 
 ## 使用
+
+[Java+Tomcat 布署说明](Java+Tomcat.md)
 
 ### 1.下载
 
