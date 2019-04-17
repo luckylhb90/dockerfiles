@@ -131,14 +131,7 @@ services:
     volumes:
       - ./services/postgres/data:/var/lib/postgresql/data:rw
       - src:/app:rw
-
-  java:
-    image: hopher/java:8
-    container_name: my_java
-    build:
-      context: .
-      dockerfile: ./services/java/Dockerfile
-
+      
 #    
 # see: 
 #   - https://docs.docker.com/engine/reference/commandline/volume_create/#driver-specific-options

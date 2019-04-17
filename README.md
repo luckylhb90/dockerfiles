@@ -10,16 +10,12 @@
 - Redis 3.2
 - Node 11.12
 - Postgres 10
-- Java 8
-- Tomcat 8
 
 PHP 扩展
 - swoole v4.3.0
 - Composer version 1.8.4
 
 ## 使用
-
-[Java+Tomcat 布署说明](Java+Tomcat.md)
 
 ### 1.下载
 
