@@ -141,21 +141,8 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - src:/app:rw 
-      
-  maven:
-    image: hopher/maven:3.6.1-jdk-8-alpine
-    container_name: my_maven
-    #command: mvn clean package -P local
-    build:
-      context: .
-      dockerfile: ./services/maven/Dockerfile
-    volumes:
-      - maven-repo:/root/.m2:rw     # 重用Maven本地存储库
-      - app:/app:rw      
-    #working_dir: /app
-        
-      
+      - src:/app:rw
+              
 #    
 # see: 
 #   - https://docs.docker.com/engine/reference/commandline/volume_create/#driver-specific-options

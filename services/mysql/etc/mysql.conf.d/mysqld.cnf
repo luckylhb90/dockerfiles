@@ -32,3 +32,7 @@ symbolic-links=0
 # 删除了 NO_ZERO_IN_DATE,NO_ZERO_DATE 解决时间戳为空 error
 # https://stackoverflow.com/questions/36882149/error-1067-42000-invalid-default-value-for-created-at
 sql_mode = "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+
+log-output=FILE
+general-log=1
+general_log_file="/var/log/mysql/mysqlquery.log"
