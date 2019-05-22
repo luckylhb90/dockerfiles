@@ -9,10 +9,10 @@ services:
       context: .
       dockerfile: ./services/go/Dockerfile
     ports:
-      - "1313:1313"
+      - "1314:1313"
     volumes:
       # Golang config
-      - src:/go/src:rw
+      - app:/go/app:rw
       - ./services/go/bin:/go/bin:rw
       - ./services/go/pkg:/go/pkg:rw
       # Git and ssh config
@@ -31,13 +31,15 @@ services:
       context: .
       dockerfile: ./services/php/v7.1/Dockerfile
       args:
-        INSTALL_SWOOLE: "false"      
+        INSTALL_SWOOLE: "false"
+    depends_on:
+      - mysql            
     ports:
       - "9501:9501"
       - "9502:9502"
       - "9503:9503"
     volumes:
-      - src:/var/www/html:rw
+      - app:/var/www/html:rw
 #      - ./services/php/etc:/usr/local/etc:ro
     restart: always
     command: php-fpm
@@ -77,7 +79,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - src:/usr/share/nginx/html:rw
+      - app:/usr/share/nginx/html:rw
       - ./services/nginx/etc/conf.d:/etc/nginx/conf.d
       - ./services/nginx/etc/nginx.conf:/etc/nginx/nginx.conf:ro
     restart: always
@@ -94,7 +96,7 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - src:/app:rw
+      - app:/app:rw
     restart: always
 
   node:
@@ -111,7 +113,7 @@ services:
     ports:
       - "4000:4000"
     volumes:
-      - src:/app:rw      
+      - app:/app:rw      
     stdin_open: true
     tty: true
     restart: always
@@ -130,7 +132,7 @@ services:
       dockerfile: ./services/postgres/Dockerfile
     volumes:
       - ./services/postgres/data:/var/lib/postgresql/data:rw
-      - src:/app:rw
+      - app:/app:rw
 
   tomcat:
     image: hopher/tomcat:8-jre8
@@ -141,7 +143,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - src:/app:rw
+      - app:/app:rw
               
 #    
 # see: 
@@ -151,8 +153,8 @@ services:
 # 相当于: mount -t none -o bind source_path dest_path
 volumes:
   # 源码目录
-  src:
+  app:
     driver: local
     driver_opts:
-      device: ${HOME}/src # docker 不支持相对路径
+      device: ${HOME}/app # docker 不支持相对路径
       o: bind
