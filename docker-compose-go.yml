@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  golang:
+    environment:
+      MIRROR_SOURCE: aliyun
+    image: app/golang:1.12
+    container_name: app_golang
+    build:
+      context: .
+      dockerfile: ./services/go/Dockerfile
+    ports:
+      - "1314:1313"
+    volumes:
+      - ${HOME}/app:/go/app:rw
+      - ./services/go/bin:/go/bin:rw
+      - ./services/go/pkg:/go/pkg:rw
+    stdin_open: true
+    tty: true
+    restart: always
+    networks:
+      - app
+      - common
+
+networks:
+  common: # 公用网络
+    external: true
+    name: dockerfiles_default # `docker network ls` 查询 && 根据实际填写
+  app:
+    name: golang
