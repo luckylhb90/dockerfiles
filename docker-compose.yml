@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
   golang:
     environment:
@@ -12,7 +12,7 @@ services:
       - "1314:1313"
     volumes:
       # Golang config
-      - app:/go/app:rw
+      - ${HOME}/app:/go/app:rw
       - ./services/go/bin:/go/bin:rw
       - ./services/go/pkg:/go/pkg:rw
       # Git and ssh config
@@ -39,7 +39,7 @@ services:
       - "9502:9502"
       - "9503:9503"
     volumes:
-      - app:/var/www/html:rw
+      - ${HOME}/app:/var/www/html:rw
 #      - ./services/php/etc:/usr/local/etc:ro
     restart: always
     command: php-fpm
@@ -79,7 +79,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - app:/usr/share/nginx/html:rw
+      - ${HOME}/app:/usr/share/nginx/html:rw
       - ./services/nginx/etc/conf.d:/etc/nginx/conf.d
       - ./services/nginx/etc/nginx.conf:/etc/nginx/nginx.conf:ro
     restart: always
@@ -96,7 +96,7 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - app:/app:rw
+      - ${HOME}/app:/app:rw
     restart: always
 
   node:
@@ -113,7 +113,7 @@ services:
     ports:
       - "4000:4000"
     volumes:
-      - app:/app:rw      
+      - ${HOME}/app:/app:rw      
     stdin_open: true
     tty: true
     restart: always
@@ -132,29 +132,4 @@ services:
       dockerfile: ./services/postgres/Dockerfile
     volumes:
       - ./services/postgres/data:/var/lib/postgresql/data:rw
-      - app:/app:rw
-
-  tomcat:
-    image: hopher/tomcat:8-jre8
-    container_name: my_tomcat
-    build:
-      context: .
-      dockerfile: ./services/tomcat/Dockerfile
-    ports:
-      - "8080:8080"
-    volumes:
-      - app:/app:rw
-              
-#    
-# see: 
-#   - https://docs.docker.com/engine/reference/commandline/volume_create/#driver-specific-options
-#   - https://github.com/docker/compose/issues/2957
-# 
-# 相当于: mount -t none -o bind source_path dest_path
-volumes:
-  # 源码目录
-  app:
-    driver: local
-    driver_opts:
-      device: ${HOME}/app # docker 不支持相对路径
-      o: bind
+      - ${HOME}/app:/app:rw

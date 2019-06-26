@@ -37,6 +37,19 @@ mkdir -p ${HOME}/src
 docker-compose up
 ```  
 
+2.1 运行时，指定配置文件: 
+```
+docker-compose -p java -f docker-compose-tomcat.yml up -d
+```
+
+**参数说明**:
+
+- `-p` 工程名称, 这里为 java, 代表java 相关配置
+- `-f` 配置文件
+- `-d` 后台运行
+
+> 更多帮助信息 `docker-compose -h|--help`
+
 如果没问题，下次启动时可以以守护模式启用，所有容器将后台运行：  
 ```
 docker-compose up -d
