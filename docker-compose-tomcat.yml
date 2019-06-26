@@ -8,6 +8,9 @@ services:
       dockerfile: ./services/tomcat/Dockerfile
     ports:
       - "8080:8080"
+    volumes:
+      - ./services/tomcat/logs:/usr/local/tomcat/logs
+      # - ./services/tomcat/webapps:/usr/local/tomcat/webapps
     networks:
       - app
       - common
