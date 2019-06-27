@@ -173,16 +173,6 @@ dockerfiles
 > **NOTE**:  
 > 查询自己的Linux版本 `cat /etc/issue`
 
-## 番外篇
-
-### links
-
-
-> **Warning**: The `--link` flag is a legacy feature of Docker. It may eventually be removed. Unless you absolutely need to continue using it, we recommend that you use [user-defined networks](https://docs.docker.com/engine/userguide/networking//#user-defined-networks) to facilitate communication between two containers instead of using `--link`. One feature that user-defined networks do not support that you can do with `--link` is sharing environmental variables between containers. However, you can use other mechanisms such as volumes to share environment variables between containers in a more controlled way.
->
-> @https://docs.docker.com/compose/compose-file/
-
-
 ## git ssh 密钥配置
 
 For your host machine which run git, all the contents of `git config --list` is stored in files:
