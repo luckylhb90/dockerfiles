@@ -215,12 +215,14 @@ volumes:
 
 先 fork 一份, 按照格式:
 
-`services/名称/版本号/Dockerfile`, 编写具体镜像内容，然后 `Pull Request`
+`services/名称/版本号/Dockerfile`
 
 示例: 
 ```
 services/php/v7.1/Dockerfile
 ```
+
+在 services/php/v7.1 文件夹中，编写具体内容，然后 `Pull Request`
 
 ## 贡献名单
 
