@@ -1,54 +1,11 @@
 version: '3.7'
 services:
-  golang:
-    environment:
-      MIRROR_SOURCE: tencent
-    image: hopher/golang:1.12
-    container_name: my_golang
-    build:
-      context: .
-      dockerfile: ./services/go/Dockerfile
-    ports:
-      - "1314:1313"
-    volumes:
-      # Golang config
-      - ${HOME}/app:/go/app:rw
-      - ./services/go/bin:/go/bin:rw
-      - ./services/go/pkg:/go/pkg:rw
-      # Git and ssh config
-      - ~/.ssh:/root/.ssh:ro # Change - ssh key needed to push to github
-      - ~/.gitconfig:/root/.gitconfig:ro  # Change - git config needed for user details
-      #- /tmp/ssh_auth_sock:/tmp/ssh_auth_sock #Static - needed to push to github without prompt
-    stdin_open: true
-    tty: true
-    restart: always
-  php:
-    environment:
-      MIRROR_SOURCE: aliyun
-    image: hopher/php:7.1-fpm
-    container_name: my_php
-    build:
-      context: .
-      dockerfile: ./services/php/v7.1/Dockerfile
-      args:
-        INSTALL_SWOOLE: "false"
-    depends_on:
-      - mysql            
-    ports:
-      - "9501:9501"
-      - "9502:9502"
-      - "9503:9503"
-    volumes:
-      - ${HOME}/app:/var/www/html:rw
-#      - ./services/php/etc:/usr/local/etc:ro
-    restart: always
-    command: php-fpm
 
   mysql:
     environment:
-      MIRROR_SOURCE: tencent    
-    image: hopher/mysql:5.7
-    container_name: my_mysql
+      MIRROR_SOURCE: aliyun    
+    image: app/mysql:5.7
+    container_name: app_mysql
     build:
       context: .
       dockerfile: ./services/mysql/Dockerfile    
@@ -62,34 +19,14 @@ services:
       MYSQL_ROOT_PASSWORD: 123456
     restart: always
     command: "--character-set-server=utf8"
-
-  nginx:
-    environment:
-      MIRROR_SOURCE: tencent    
-    image: hopher/nginx:1.15
-    container_name: my_nginx
-    build:
-      context: .
-      dockerfile: ./services/nginx/Dockerfile     
-    depends_on:
-      - php
-    links:  # links 为 services name, 官方已废弃这个参数
-      - php:php-fpm
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ${HOME}/app:/usr/share/nginx/html:rw
-      - ./services/nginx/etc/conf.d:/etc/nginx/conf.d
-      - ./services/nginx/etc/nginx.conf:/etc/nginx/nginx.conf:ro
-    restart: always
-    command: nginx -g 'daemon off;'
+    networks:
+      - common    
 
   redis:
     environment:
-      MIRROR_SOURCE: tencent    
-    image: hopher/redis:3.2
-    container_name: my_redis
+      MIRROR_SOURCE: aliyun    
+    image: app/redis:3.2
+    container_name: app_redis
     build:
       context: .
       dockerfile: ./services/redis/Dockerfile        
@@ -98,32 +35,15 @@ services:
     volumes:
       - ${HOME}/app:/app:rw
     restart: always
-
-  node:
-    environment:
-      MIRROR_SOURCE: tencent    
-    image: hopher/node:11.12
-    container_name: my_node
-    build:
-      context: .
-      dockerfile: ./services/node/Dockerfile
-      args:
-        INSTALL_GITBOOK: "false"  # true | false
-        INSTALL_DOCSIFY: "false"  # true | false
-    ports:
-      - "4000:4000"
-    volumes:
-      - ${HOME}/app:/app:rw      
-    stdin_open: true
-    tty: true
-    restart: always
+    networks:
+      - common    
 
   postgres:
-    image: hopher/postgres:10
-    container_name: my_postgres
+    image: app/postgres:10
+    container_name: app_postgres
     restart: always
     environment:
-      MIRROR_SOURCE: tencent  
+      MIRROR_SOURCE: aliyun  
       POSTGRES_PASSWORD: 123456
     ports:
       - "5432:5432"
@@ -133,3 +53,9 @@ services:
     volumes:
       - ./services/postgres/data:/var/lib/postgresql/data:rw
       - ${HOME}/app:/app:rw
+    networks:
+      - common
+
+networks:
+  common: # 公用网络
+    name: dockerfiles_default # `docker network ls` 查询 && 根据实际填写

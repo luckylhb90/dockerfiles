@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  php:
+    environment:
+      MIRROR_SOURCE: aliyun
+    image: app/php:7.1-fpm
+    container_name: app_php
+    build:
+      context: .
+      dockerfile: ./services/php/v7.1/Dockerfile
+      args:
+        INSTALL_SWOOLE: "false"
+    volumes:
+      - ${HOME}/app:/app:rw  # 默认工作目录: /var/www/html
+#      - ./services/php/etc:/usr/local/etc:ro
+    restart: always
+    command: php-fpm
+    networks:
+      - app
+      - common
+
+networks:
+  common: # 公用网络
+    external: true
+    name: dockerfiles_default # `docker network ls` 查询 && 根据实际填写
+  app:
+    name: php

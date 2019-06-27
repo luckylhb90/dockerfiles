@@ -2,19 +2,34 @@
 
 用 Docker 容器服务的方式搭建 nginx/php/mysql/redis/go/node/postgres/phpmyadmin 环境，易于维护、升级。
 
-相关软件版本：
-- PHP 7.1/7.2/7.3
-- Golang 1.12
-- MySQL 5.7
-- Nginx 1.15
-- Redis 3.2
-- Node 11.12
-- Postgres 10
-- tomcat 8-jre8 
+**镜相版本**
 
-PHP 扩展
-- swoole v4.3.0
-- Composer version 1.8.4
+公用存储: (网段名: dockerfiles_default)
+- MySQL 5.7
+- Redis 3.2
+- Postgres 10
+
+其它：
+- PHP 7.1/7.2/7.3
+    - 扩展: swoole v4.3.0
+    - 扩展: Composer version 1.8.4
+- Golang 1.12
+- Nginx 1.15
+- Node 11.12
+- tomcat 8-jre8
+
+
+## 构建自定义项目组合, 配置说明
+
+公用存储(MySQL, Redis, Postgres), 使用了网段: dockerfiles_default
+
+你可以通过复制 && 修改 .env.example 来自定义构建项目组合
+
+示例: 
+```
+cp .env.example .env
+vi .env
+```
 
 ## 使用
 
@@ -32,9 +47,11 @@ mkdir -p ${HOME}/app
 
 ### 2. docker-compose 构建项目
 
+
 进入 docker-compose.yml 所在目录：
 执行命令：
 ```
+cp .env.example .env
 docker-compose up
 ```
 
@@ -92,6 +109,11 @@ echo "<?php phpinfo();" > index.php
 
     # 查找容器IP地址
     docker inspect 容器名或ID | grep "IPAddress"
+
+    # 创建网段, 名称: mynet, 分配两个容器在同一网段中 (这样子才可以互相通信)
+    docker network create mynet
+    docker run -d --net mynet --name container1 my_image
+    docker run -it --net mynet --name container1 another_image
     ```
 
 > 更多帮助信息 `docker-compose -h|--help`      
@@ -107,6 +129,22 @@ dockerfiles
 ~/app                               # 工作源码存放目录
 ```
 
+
+## Version 3 (docker-composer) 不再支持参数说明
+
+**depends_on**
+
+> 笔者解读: 通过配置 `networks` 参数更好地改进
+
+- `depends_on` does not wait for `db` and `redis` to be “ready” before starting `web` - only until they have been started. If you need to wait for a service to be ready, see [Controlling startup order](https://docs.docker.com/compose/startup-order/) for more on this problem and strategies for solving it.
+- Version 3 no longer supports the `condition` form of `depends_on`.
+- The `depends_on` option is ignored when [deploying a stack in swarm mode](https://docs.docker.com/engine/reference/commandline/stack_deploy/) with a version 3 Compose file.
+
+> @https://docs.docker.com/compose/compose-file/
+
+**links**
+
+**Warning**: The `--link` flag is a legacy feature of Docker. It may eventually be removed. Unless you absolutely need to continue using it, we recommend that you use [user-defined networks](https://docs.docker.com/engine/userguide/networking//#user-defined-networks) to facilitate communication between two containers instead of using `--link`. One feature that user-defined networks do not support that you can do with `--link` is sharing environmental variables between containers. However, you can use other mechanisms such as volumes to share environment variables between containers in a more controlled way.
 
 
 ## 各系统软件源
@@ -153,6 +191,15 @@ For your host machine which run git, all the contents of `git config --list` is 
 
 > @https://stackoverflow.com/questions/52819584/copying-local-git-config-into-docker-container
 > @https://github.com/tomwillfixit/atomci/blob/master/docker-compose.yml
+
+示例: 
+```
+volumes:
+    # Git and ssh config
+    - ~/.ssh:/root/.ssh:ro # Change - ssh key needed to push to github
+    - ~/.gitconfig:/root/.gitconfig:ro  # Change - git config needed for user details
+    #- /tmp/ssh_auth_sock:/tmp/ssh_auth_sock #Static - needed to push to github without prompt
+```
 
 ##  参考资料
 - [[官方文档] Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
