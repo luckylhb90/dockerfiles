@@ -203,7 +203,7 @@ volumes:
 
 ## Feedback && Contribution
 
-[Feedback](https://github.com/hopher/dockerfiles/issues/new), 十分感谢
+[Feedback](https://github.com/hopher/dockerfiles/issues/new), Thank you.
 
 
 **Team up together, contribute**
