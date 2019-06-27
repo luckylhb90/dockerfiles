@@ -219,7 +219,7 @@ services/php/v7.1/Dockerfile
 
 Last `Pull Request`
 
-## Contribution list
+## Contributions
 
 ... Looking forward to your name ...
 
