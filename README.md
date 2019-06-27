@@ -21,11 +21,25 @@ Other：
 - tomcat 8-jre8
 
 
-## Build a custom project portfolio, configuration instructions
+## Custom a project combination && Config
 
 Common storage (MySQL, Redis, Postgres), using the network segment: dockerfiles_default
 
-You can customize the build project portfolio by copying && modifying .env.example
+You can customize the build project combination by copying && modifying .env file
+
+default is php combination
+
+```
+COMPOSE_FILE=docker-compose.yml:docker-compose-php.yml:docker-compose-nginx.yml
+```
+
+You can change COMPOSE_FILE to 
+
+```
+COMPOSE_FILE=docker-compose.yml:docker-compose-go.yml
+```
+
+which mean only need `mysql + redis + postgres + golang`
 
 Example: 
 ```
