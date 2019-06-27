@@ -31,6 +31,7 @@ cp .env.example .env
 vi .env
 ```
 
+
 ## 使用
 
 ### 1. 下载
@@ -201,10 +202,15 @@ volumes:
     #- /tmp/ssh_auth_sock:/tmp/ssh_auth_sock #Static - needed to push to github without prompt
 ```
 
+## 版本计划
+
+- [] 增加 .env 配置镜相版本
+
 ##  参考资料
 - [[官方文档] Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
 - [[官方文档] Compose file version 3 reference](https://docs.docker.com/compose/compose-file/)
 - [[官方文档] Use volumes](https://docs.docker.com/storage/volumes/)
+- [[官方文档] env-file](https://docs.docker.com/compose/env-file/)
 - [[镜像] mysql 镜像说明](https://hub.docker.com/_/mysql/)
 - [[镜像] php 镜像说明](https://hub.docker.com/_/php/)
 - [[镜像站] 阿里云开源镜像站](https://opsx.alibaba.com/mirror)
