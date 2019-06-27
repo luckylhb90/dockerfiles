@@ -11,7 +11,7 @@ services:
     ports:
       - "1314:1313"
     volumes:
-      - ${HOME}/app:/go/app:rw
+      - ${HOME}/app:/app:rw
       - ./services/go/bin:/go/bin:rw
       - ./services/go/pkg:/go/pkg:rw
     stdin_open: true
