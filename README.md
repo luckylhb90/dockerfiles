@@ -1,6 +1,6 @@
 # Dockerfiles
 
-The nginx/php/mysql/redis/go/node/postgres/phpmyadmin environment is built using the Docker container service, which is easy to maintain and upgrade.
+Using docker container build  nginx/php/mysql/redis/go/node/postgres/phpmyadmin service,which is easy to maintain and upgrade.
 
 - [中文说明](./README.cn.md)
 
