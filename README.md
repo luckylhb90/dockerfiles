@@ -213,7 +213,7 @@ volumes:
 
 **一起组队, 参与贡献**
 
-先 fork 一份, 按照格式:
+先 `fork` 一份, 按照格式:
 
 `services/名称/版本号/Dockerfile`
 
