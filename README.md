@@ -1,42 +1,44 @@
 # Dockerfiles
 
-用 Docker 容器服务的方式搭建 nginx/php/mysql/redis/go/node/postgres/phpmyadmin 环境，易于维护、升级。
+The nginx/php/mysql/redis/go/node/postgres/phpmyadmin environment is built using the Docker container service, which is easy to maintain and upgrade.
 
-**镜相版本**
+- [中文说明](./README.cn.md)
 
-公用存储: (网段名: dockerfiles_default)
+**Mirror version**
+
+Common storage: (network segment name: dockerfiles_default)
 - MySQL 5.7
 - Redis 3.2
 - Postgres 10
 
-其它：
+Other：
 - PHP 7.1/7.2/7.3
-    - 扩展: swoole v4.3.0
-    - 扩展: Composer version 1.8.4
+    - extension: swoole v4.3.0
+    - extension: Composer version 1.8.4
 - Golang 1.12
 - Nginx 1.15
 - Node 11.12
 - tomcat 8-jre8
 
 
-## 构建自定义项目组合, 配置说明
+## Build a custom project portfolio, configuration instructions
 
-公用存储(MySQL, Redis, Postgres), 使用了网段: dockerfiles_default
+Common storage (MySQL, Redis, Postgres), using the network segment: dockerfiles_default
 
-你可以通过复制 && 修改 .env.example 来自定义构建项目组合
+You can customize the build project portfolio by copying && modifying .env.example
 
-示例: 
+Example: 
 ```
 cp .env.example .env
 vi .env
 ```
 
 
-## 使用
+## How to Use
 
-### 1. 下载
+### 1. Download
 
-下载 zip 压缩包 && 解压
+Download zip archive && unzip
 
 ```
 wget -c https://github.com/hopher/dockerfiles/archive/master.zip -O dockerfiles.zip
@@ -44,98 +46,100 @@ unzip dockerfiles.zip
 mkdir -p ${HOME}/app
 ```
 
-其中, `~/app` 为 volumes 名称，可根据自己需要更改 `docker-compose.yml` 中 volumes 对应值
+Where ~/app is the volume name, you can change the corresponding value of volumes in docker-compose.yml according to your needs.
 
-### 2. docker-compose 构建项目
+### 2. docker-compose Build project
 
 
-进入 docker-compose.yml 所在目录：
-执行命令：
+Go to the directory where docker-compose.yml is located And Execute the command:
+
 ```
 cp .env.example .env
 docker-compose up
 ```
 
-如果没问题，下次启动时可以以守护模式启用，所有容器将后台运行：  
+If there is no problem, it can be enabled in daemon mode the next time it is started, and all containers will run in the background:
+
 ```
 docker-compose up -d
 ``` 
 
-使用 docker-compose 基本上就这么简单，Docker 就跑起来了，用 stop，start 关闭开启容器服务。  
-更多的是在于编写 dockerfile 和 docker-compose.yml 文件。 
+Using docker-compose is basically as simple as this, Docker runs up, and stops the container service with stop, start.
+More is to write the dockerfile and docker-compose.yml files.
 
-可以这样关闭容器并删除服务：
+You can close the container and delete the service like this:
+
 ```
 docker-compose down
 ```
 
-### 3. 测试
+### 3. Test
 
-将项目源码放到 `~/app` 目录下, 并运行
+Put the project source code in the `~/app` directory and run it
 
 ```
 cd src
 echo "<?php phpinfo();" > index.php
 ```
 
-打开 url 访问 `http://localhost/index.php`
+Open url: `http://localhost/index.php`
 
-### 4. 常用指令
+### 4. Common command
 
-- 帮助
+- Help
     ```
     docker-compose --help
     ```
-- 列出网络 (包括跨群集中多个主机的网络)
+- List network
     ```
     docker network ls
     ```
-- 运行时，指定配置文件  
+- Specify the configuration file at runtime
     ```
     docker-compose -p java -f docker-compose-tomcat.yml up -d
     ```
-    **参数**:
-    - `-p` 工程名称, 这里为 java, 代表java 相关配置
-    - `-f` 配置文件
-    - `-d` 后台运行
+    **Parameters**:
+    - `-p` project name
+    - `-f` Configuration file
+    - `-d` Run in Background
 
-- 常用`shell`组合
+- Common `shell` command
 
     ```
-    # 删除所有容器
+    # Delete all containers
     docker stop `docker ps -q -a` | xargs docker rm
 
-    # 删除所有标签为none的镜像
+    # Delete all images with the tag as none
     docker images|grep \<none\>|awk '{print $3}'|xargs docker rmi
 
-    # 查找容器IP地址
+    # Find the container IP address
     docker inspect 容器名或ID | grep "IPAddress"
 
-    # 创建网段, 名称: mynet, 分配两个容器在同一网段中 (这样子才可以互相通信)
+    # Create a network segment
     docker network create mynet
     docker run -d --net mynet --name container1 my_image
     docker run -it --net mynet --name container1 another_image
     ```
 
-> 更多帮助信息 `docker-compose -h|--help`      
+> more help `docker-compose -h|--help`      
 
-### 5. 目录结构
+### 5. Directory Structure
 
 ```
 dockerfiles
-    |-- services                    # docker 相关服务
-    |-- docker-compose.yml          # 通用配置文件
-    |-- docker-compose-tomcat.yml   # tomcat 配置文件
-    |-- mirrors                     # source.list 镜像源地址
-~/app                               # 工作源码存放目录
+    |-- services                    # docker service file, like nginx, mysql, php
+    |-- docker-compose.yml          # compose file 
+    |-- docker-compose-tomcat.yml   # tomcat compose file 
+    |-- mirrors                     # mirrors source.list
+~/app                               # app source codes
 ```
 
 
-## Version 3 (docker-composer) 不再支持参数说明
+## Version 3 (docker-composer) Parameter description is no longer supported
 
 **depends_on**
 
-> 笔者解读: 通过配置 `networks` 参数更好地改进
+> The author interprets: Better improved by configuring the `networks` parameter
 
 - `depends_on` does not wait for `db` and `redis` to be “ready” before starting `web` - only until they have been started. If you need to wait for a service to be ready, see [Controlling startup order](https://docs.docker.com/compose/startup-order/) for more on this problem and strategies for solving it.
 - Version 3 no longer supports the `condition` form of `depends_on`.
@@ -148,11 +152,11 @@ dockerfiles
 **Warning**: The `--link` flag is a legacy feature of Docker. It may eventually be removed. Unless you absolutely need to continue using it, we recommend that you use [user-defined networks](https://docs.docker.com/engine/userguide/networking//#user-defined-networks) to facilitate communication between two containers instead of using `--link`. One feature that user-defined networks do not support that you can do with `--link` is sharing environmental variables between containers. However, you can use other mechanisms such as volumes to share environment variables between containers in a more controlled way.
 
 
-## 各系统软件源
+## System software source
 
 ### Ubuntu
 
-| 系统代号 | 版本  |
+| System code | Version  |
 | -------- | ----- |
 | precise  | 12.04 |
 | trusty   | 14.04 |
@@ -162,7 +166,7 @@ dockerfiles
 
 ### Debian
 
-| 系统代号 | 版本 |
+| System code | Version |
 | -------- | ---- |
 | squeeze  | 6.x  |
 | wheezy   | 7.x  |
@@ -171,9 +175,9 @@ dockerfiles
 | buster   | 10.x |
 
 > **NOTE**:  
-> 查询自己的Linux版本 `cat /etc/issue`
+> Search Your Linux Version `cat /etc/issue`
 
-## git ssh 密钥配置
+## git ssh key config
 
 For your host machine which run git, all the contents of `git config --list` is stored in files:
 
@@ -183,7 +187,8 @@ For your host machine which run git, all the contents of `git config --list` is 
 > @https://stackoverflow.com/questions/52819584/copying-local-git-config-into-docker-container
 > @https://github.com/tomwillfixit/atomci/blob/master/docker-compose.yml
 
-示例: 
+Example: 
+
 ```
 volumes:
     # Git and ssh config
@@ -192,40 +197,40 @@ volumes:
     #- /tmp/ssh_auth_sock:/tmp/ssh_auth_sock #Static - needed to push to github without prompt
 ```
 
-## 版本计划
+## Development Plan
 
-- [] 增加 .env 配置镜相版本
+- [] add .env config
 
-## 反馈、参与贡献
+## Feedback && Contribution
 
 [点击 - 提交你的意见](https://github.com/hopher/dockerfiles/issues/new), 十分感谢
 
 
-**一起组队, 参与贡献**
+**Team up together, contribute**
 
-先 `fork` 一份, 按照格式:
+First `fork`, according to the format:
 
-`services/名称/版本号/Dockerfile`
+`services/services_name/version/Dockerfile`
 
-示例: 
+Example: 
 ```
 services/php/v7.1/Dockerfile
 ```
 
-在 services/php/v7.1 文件夹中，编写具体内容，然后 `Pull Request`
+Last `Pull Request`
 
-## 贡献名单
+## Contribution list
 
-... 期待你的留名 ...
+... Looking forward to your name ...
 
-##  参考资料
-- [[官方文档] Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
-- [[官方文档] Compose file version 3 reference](https://docs.docker.com/compose/compose-file/)
-- [[官方文档] Use volumes](https://docs.docker.com/storage/volumes/)
-- [[官方文档] env-file](https://docs.docker.com/compose/env-file/)
-- [[镜像] mysql 镜像说明](https://hub.docker.com/_/mysql/)
-- [[镜像] php 镜像说明](https://hub.docker.com/_/php/)
-- [[镜像站] 阿里云开源镜像站](https://opsx.alibaba.com/mirror)
-- [[镜像站] 腾讯开源镜像站](https://mirrors.cloud.tencent.com/index.html)
-- [[镜像站] 网易开源镜像站](http://mirrors.163.com/)
-- [[镜像站] 清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/help/debian/)
+##  Reference material
+- [[Official document] Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
+- [[Official document] Compose file version 3 reference](https://docs.docker.com/compose/compose-file/)
+- [[Official document] Use volumes](https://docs.docker.com/storage/volumes/)
+- [[Official document] env-file](https://docs.docker.com/compose/env-file/)
+- [[Mirror Site] mysql](https://hub.docker.com/_/mysql/)
+- [[Mirror Site] php](https://hub.docker.com/_/php/)
+- [[Mirror Site] Alibaba](https://opsx.alibaba.com/mirror)
+- [[Mirror Site] Tencent](https://mirrors.cloud.tencent.com/index.html)
+- [[Mirror Site] 163](http://mirrors.163.com/)
+- [[Mirror Site] Tuna](https://mirrors.tuna.tsinghua.edu.cn/help/debian/)
