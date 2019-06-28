@@ -48,7 +48,7 @@ vi .env
 ```
 
 
-## How to Use
+## Usage
 
 ### 1. Download
 
