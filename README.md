@@ -47,21 +47,21 @@ cp .env.example .env
 vi .env
 ```
 
-Or DIY yourself, modify the networks property in the docker-compose-*.yml file, configure the relevant communication network segment
+Or DIY yourself, modify the networks property in the `docker-compose-*.yml` file, configure the relevant communication network segment
 
 Example: 
 
 ```
 services:
   node:
-    ... // 省略
+    ... // Omit Some code
     networks:
       - app
       - common
 networks:
-  common: # 公用网络
+  common: # common network
     external: true
-    name: common # `docker network ls` 查询 && 根据实际填写
+    name: common # `docker network ls`
   app:
     name: nodejs
 ```
