@@ -24,6 +24,6 @@ services:
 networks:
   common: # 公用网络
     external: true
-    name: dockerfiles_default # `docker network ls` 查询 && 根据实际填写
+    name: common # `docker network ls` 查询 && 根据实际填写
   app:
     name: golang

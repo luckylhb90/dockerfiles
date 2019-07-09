@@ -6,7 +6,7 @@
 
 **镜像版本**
 
-公用存储: (网段名: dockerfiles_default)
+公用存储: (网段名: common)
 - MySQL 5.7
 - Redis 3.2
 - Postgres 10
@@ -23,7 +23,7 @@
 
 ## 构建自定义项目组合, 配置说明
 
-公用存储(MySQL, Redis, Postgres), 使用了网段: dockerfiles_default
+公用存储(MySQL, Redis, Postgres), 使用了网段: common
 
 你可以通过复制 && 修改 .env.example 来自定义构建项目组合
 

@@ -6,7 +6,7 @@ Using docker container build  nginx/php/mysql/redis/go/node/postgres/phpmyadmin 
 
 **Mirror version**
 
-Common storage: (network segment name: dockerfiles_default)
+Common storage: (network segment name: common)
 - MySQL 5.7
 - Redis 3.2
 - Postgres 10
@@ -23,7 +23,7 @@ Other：
 
 ## Custom a project combination && Config
 
-Common storage (MySQL, Redis, Postgres), using the network segment: dockerfiles_default
+Common storage (MySQL, Redis, Postgres), using the network segment: common
 
 You can customize the build project combination by copying && modifying .env file
 
