@@ -11,6 +11,8 @@
 - Redis 3.2
 - Postgres 10
 
+> 拆开独立成 common 镜像, 主要考虑到很多应用会直接使用类似阿里云 RDS 服务, 线上环境不会再用docker 搭建 mysql, redis 这些服务
+
 其它：
 - PHP 7.1/7.2/7.3
     - 扩展: swoole v4.3.0
