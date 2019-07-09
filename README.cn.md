@@ -35,6 +35,26 @@ cp .env.example .env
 vi .env
 ```
 
+或自己DIY, 修改 `docker-compose-*.yml` 文件中 networks 属性, 配置相关通讯网段
+
+
+示例: 
+
+```
+services:
+  node:
+    ... // 省略
+    networks:
+      - app
+      - common
+networks:
+  common: # 公用网络
+    external: true
+    name: common # `docker network ls` 查询 && 根据实际填写
+  app:
+    name: nodejs
+```
+
 
 ## 使用
 
