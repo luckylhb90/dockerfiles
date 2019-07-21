@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+
+  redis:
+    environment:
+      MIRROR_SOURCE: aliyun    
+    image: app/redis:3.2
+    container_name: app_redis
+    build:
+      context: .
+      dockerfile: ./services/redis/Dockerfile        
+    ports:
+      - "6379:6379"
+    volumes:
+      - ${HOME}/app:/app:rw
+    restart: always
+    networks:
+      - app
+
+networks:
+  app:
+    name: app # `docker network ls` 查询 && 根据实际填写

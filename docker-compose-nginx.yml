@@ -9,8 +9,8 @@ services:
     build:
       context: .
       dockerfile: ./services/nginx/Dockerfile
-    external_links:  # links 为 services name, 官方已废弃这个参数
-      - php:php-fpm
+    # external_links:  # links 为 services name, 官方已废弃这个参数
+      # - php:php-fpm
     ports:
       - "80:80"
       - "443:443"
@@ -21,12 +21,8 @@ services:
     restart: always
     command: nginx -g 'daemon off;'
     networks:
-      - common
-      - php
+      - app
 
 networks:
-  common: # 公用网络
-    external: true
-    name: common # `docker network ls` 查询 && 根据实际填写
-  php:  # php 网段
-    name: php
+  app:
+    name: app # `docker network ls` 查询 && 根据实际填写

@@ -19,11 +19,7 @@ services:
     restart: always
     networks:
       - app
-      - common
 
 networks:
-  common: # 公用网络
-    external: true
-    name: common # `docker network ls` 查询 && 根据实际填写
   app:
-    name: golang
+    name: app # `docker network ls` 查询 && 根据实际填写

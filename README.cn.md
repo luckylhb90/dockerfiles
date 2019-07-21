@@ -6,12 +6,12 @@
 
 **镜像版本**
 
-公用存储: (网段名: common)
+公用存储: (网段名: app)
 - MySQL 5.7
 - Redis 3.2
 - Postgres 10
 
-> 拆开独立成 common 镜像, 主要考虑到很多应用会直接使用类似阿里云 RDS 服务, 线上环境不会再用docker 搭建 mysql, redis 这些服务
+> 很多应用会直接使用类似阿里云 RDS 服务, 线上环境不会再用docker 搭建 mysql, redis 这些服务
 
 其它：
 - PHP 7.1/7.2/7.3
@@ -25,7 +25,7 @@
 
 ## 构建自定义项目组合, 配置说明
 
-公用存储(MySQL, Redis, Postgres), 使用了网段: common
+公用存储(MySQL, Redis, Postgres), 使用了网段: app
 
 你可以通过复制 && 修改 .env.example 来自定义构建项目组合
 
