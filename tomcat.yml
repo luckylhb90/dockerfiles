@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  tomcat:
+    image: app/tomcat:8-jre8
+    container_name: app_tomcat
+    build:
+      context: .
+      dockerfile: ${DOCKER_SERVICE}/tomcat/Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ${DOCKER_SERVICE}/tomcat/conf/server.xml:/usr/local/tomcat/conf/server.xml
+      - ${DOCKER_SERVICE}/tomcat/logs:/usr/local/tomcat/logs
+      - ${DOCKER_SERVICE}/tomcat/webapps:/usr/local/tomcat/webapps
+    entrypoint:
+      - "catalina.sh"
+      - "run"
+    restart: always
+    networks:
+      - app
+
+networks:
+  app:
+    name: app # `docker network ls` 查询 && 根据实际填写

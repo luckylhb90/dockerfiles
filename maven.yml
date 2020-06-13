@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  maven:
+    image: app/maven:3.6.1-jdk-8-alpine
+    container_name: app_maven
+    build:
+      context: .
+      dockerfile: ${DOCKER_SERVICE}/maven/${dockerfile}
+    entrypoint:
+      - GIT_URL: https://
+      - BRANCH: master
+      - VM_OPTIONS: -Xmx512M -Xms512M
+      - SERVER_NAME: app
+    volumes:
+      - ${APP_PATH}:/app/:Z
+      - ${DOCKER_SERVICE}/maven/.m2/:/root/.m2/
+      entrypoint: |
+        bash -c "rm -rf /app/done && cd /app && mvn clean install -Dmaven.test.skip=true && echo '############test_ios  mvn clean install is ok  ##############' && touch /app/done"
+    networks:
+      - app
+
+networks:
+  app:
+    name: app # `docker network ls` 查询 && 根据实际填写
